@@ -13,7 +13,7 @@ nest_asyncio.apply()
 app = FastAPI()
 
 # Loading the model and data
-model = pickle.load(open('mlflow_model/model.pkl', 'rb'))
+model = pickle.load(open('model.pkl', 'rb'))
 data = pd.read_csv('test_df.csv')
 data_train = pd.read_csv('train_df.csv')
 
