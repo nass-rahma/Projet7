@@ -3,7 +3,7 @@ cffi==1.15.1
 cloudpickle==2.2.1
 defusedxml==0.7.1
 imbalanced-learn==0.10.1
-lightgbm==3.3.5
+lightgbm==4.5.0
 matplotlib==3.7.1
 numpy==1.23.5
 packaging==23.1
