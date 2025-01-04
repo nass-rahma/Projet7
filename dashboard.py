@@ -91,33 +91,9 @@ if client_id:
         )
         st.pyplot(fig_global)
 
-      # === 5) EXPLICATION SHAP GLOBALE ===
-        st.subheader("SHAP Global Explanation")
+     
 
-       # 1) On calcule les shap values
-        shap_vals_global = explainer.shap_values(data_scaled.drop('SK_ID_CURR', axis=1))
-
-       # 2) On sélectionne la bonne classe 
-       #    Si shap_vals_global est une liste pour la classe 0 et 1 :
-        if isinstance(shap_vals_global, list) and len(shap_vals_global) == 2:
-          shap_vals_global_class1 = shap_vals_global[1]
-        else:
-          shap_vals_global_class1 = shap_vals_global  # tableau direct
-
-         # 3) On construit l'objet Explanation
-          X_global = data_scaled.drop('SK_ID_CURR', axis=1)
-          shap_values_exp = shap.Explanation(
-           values=shap_vals_global_class1,
-           data=X_global,
-           feature_names=X_global.columns
-)
-
-            # 4) On plot la beeswarm
-        fig_global, ax_global = plt.subplots()
-        shap.plots.beeswarm(shap_values_exp, max_display=20, show=False)
-        st.pyplot(fig_global)
-
-        # === 6) EXPLICATION SHAP LOCALE ===
+        # === 5) EXPLICATION SHAP LOCALE ===
         st.subheader("SHAP Local Explanation")
 
         # On retire la colonne SK_ID_CURR pour l'inférence SHAP
