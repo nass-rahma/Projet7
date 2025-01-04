@@ -93,34 +93,34 @@ if client_id:
 
      
 
-        # === 5) EXPLICATION SHAP LOCALE ===
-        st.subheader("SHAP Local Explanation")
+       # === 6) EXPLICATION SHAP LOCALE ===
+st.subheader("SHAP Local Explanation")
 
-        # On retire la colonne SK_ID_CURR pour l'inférence SHAP
-        X_client = client_data.drop('SK_ID_CURR', axis=1)
-        
+# Retirez la colonne SK_ID_CURR pour SHAP
+X_client = client_data.drop('SK_ID_CURR', axis=1)
 
-        # Calcul des SHAP values pour cette unique observation
-        shap_values_local = explainer(X_client)  # Peut renvoyer un shap.Explanation ou une liste
+# Calcul des SHAP values pour l'observation du client
+shap_values_local = explainer.shap_values(X_client)
 
-        # -- Gérer la forme retournée par SHAP --
-        # 1) Si c'est une liste (ex: shap_values_local[0] pour la classe 0, shap_values_local[1] pour la classe 1)
-        if isinstance(shap_values_local, list):
-            # Pour un modèle binaire, on prend souvent la classe 1
-            shap_for_class1 = shap_values_local[1]
-            # Comme X_client = 1 ligne, shap_for_class1.shape = (1, n_features)
-            local_explanation = shap_for_class1[0]  # vecteur SHAP pour le client
-        else:
-            # Sinon, c'est un unique tableau (ou shap.Explanation) pour la classe positive
-            # de forme (1, nb_features)
-            local_explanation = shap_values_local[0]
+# Gestion de la structure des SHAP values (binaire ou régressif)
+if isinstance(shap_values_local, list):  # Si plusieurs classes (binaire)
+    shap_for_class1 = shap_values_local[1]  # Classe positive (1)
+    local_explanation = shap_for_class1[0]  # Vecteur SHAP pour le client
+    base_value = explainer.expected_value[1]  # Base value pour la classe 1
+else:  # Si une seule classe ou régressif
+    local_explanation = shap_values_local[0]
+    base_value = explainer.expected_value
 
-        # Affichage du waterfall plot
-        fig_local = plt.figure()
-        shap.waterfall_plot(local_explanation, show=False)
-        st.pyplot(fig_local)
-
-
+# Affichage du Waterfall Plot
+fig_local = plt.figure()
+shap.waterfall_plot(
+    base_value=base_value,              # Base value (scalaire)
+    shap_values=local_explanation,      # SHAP values du client
+    features=X_client.values[0],        # Valeurs du client
+    feature_names=X_client.columns.tolist(),  # Noms des features
+    show=False
+)
+st.pyplot(fig_local)
 
         
        
