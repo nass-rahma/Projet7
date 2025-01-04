@@ -14,8 +14,8 @@ app = FastAPI()
 
 # Loading the model and data
 model = pickle.load(open('model.pkl', 'rb'))
-data = pd.read_csv('test_df.csv')
-data_train = pd.read_csv('train_df.csv')
+data = pd.read_csv('test_df_api.csv')
+data_train = pd.read_csv('train_df_api.csv')
 
 
 data_scaled = data.copy()
