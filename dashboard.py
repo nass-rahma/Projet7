@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 
 # === 1) CHARGEMENT DU MODÈLE ET DES DONNÉES ===
-model = pickle.load(open('mlflow_model/model.pkl', 'rb'))
-data = pd.read_csv('test_df.csv')
-data_train = pd.read_csv('train_df.csv')
+model = pickle.load(open('model.pkl', 'rb'))
+data = pd.read_csv('test_df_api.csv')
+data_train = pd.read_csv('train_df_api.csv')
 
 #  Prétraitement / scaling
 data_scaled = data.copy()
