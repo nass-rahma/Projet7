@@ -96,7 +96,7 @@ if client_id:
        # === 6) EXPLICATION SHAP LOCALE ===
 st.subheader("SHAP Local Explanation")
 
-# Retirez la colonne SK_ID_CURR pour SHAP
+# Retirer la colonne SK_ID_CURR pour SHAP
 X_client = client_data.drop('SK_ID_CURR', axis=1)
 
 # Calcul des SHAP values pour l'observation du client
@@ -111,16 +111,17 @@ else:  # Si une seule classe ou régressif
     local_explanation = shap_values_local[0]
     base_value = explainer.expected_value
 
+# Créer un shap.Explanation pour le waterfall_plot
+shap_exp = shap.Explanation(
+    values=local_explanation,
+    base_values=base_value,
+    data=X_client.values[0],
+    feature_names=X_client.columns.tolist()
+)
+
 # Affichage du Waterfall Plot
 fig_local = plt.figure()
-shap.waterfall_plot(
-    base_value=base_value,              # Base value (scalaire)
-    shap_values=local_explanation,      # SHAP values du client
-    features=X_client.values[0],        # Valeurs du client
-    feature_names=X_client.columns.tolist(),  # Noms des features
-    show=False
-)
+shap.plots.waterfall(shap_exp, show=False)
 st.pyplot(fig_local)
-
         
        
