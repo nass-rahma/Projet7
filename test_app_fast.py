@@ -15,7 +15,7 @@ def test_welcome():
 
 def test_check_client_id():
     """Test la fonction check_client_id() de l'API avec un client faisant partie de la base de données."""
-    url = API_URL + str(101198)
+    url = API_URL + str(100038)
     response = requests.get(url)
     assert response.status_code == status.HTTP_200_OK
     assert json.loads(response.content) == True
