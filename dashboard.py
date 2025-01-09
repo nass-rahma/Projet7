@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 import numpy as np
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
-
+# https://projet7-6.onrender.com/
 # === 1) CHARGEMENT DU MODÈLE ET DES DONNÉES ===
 model = pickle.load(open('model.pkl', 'rb'))
 data = pd.read_csv('test_df_api.csv')
