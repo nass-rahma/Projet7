@@ -6,7 +6,7 @@ import pickle
 import uvicorn
 import shap
 import nest_asyncio
-
+# https://projet7-3.onrender.com/
 nest_asyncio.apply()
 
 # Create a FastAPI instance
